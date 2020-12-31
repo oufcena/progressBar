@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>Progress Bar</h1>
+
+<script>
+function progress(JSX=document.body) {
+  var start=0, CSS, JS, HTML='';
+  
+  CSS = [
+    `
+      width: 100%;
+      background: #ddd;
+    `,
+    `
+      width: ${start}%;
+      height: 30px;
+      background: #4CAF50;
+      text-align: center;
+      line-height: 30px;
+      color: white;
+    `,
+    `
+      margin: 1rem 0;
+    `
+  ];
+  
+  JS = [
+    `
+      onclick = "
+      var bar, width;
+      bar = this.previousElementSibling.children[0];
+      width = ${start};
+      
+      function move() {
+        if(width < 100) {
+          width++;
+          bar.style.width = width + '%';
+          bar.textContent = width  + '%';
+          setTimeout(move, 10);
+        }
+      } move();
+      "
+    `
+  ];
+  
+  HTML += `
+  <section>
+    <div style="${CSS[0]}">
+      <div style="${CSS[1]}">${start}%</div>
+    </div>
+
+    <button style="${CSS[2]}" ${JS[0]}>Click Me</button> 
+  </section>
+  `;
+  
+  JSX.innerHTML += HTML;
+} progress();
+</script>
+
+</body>
+</html>
